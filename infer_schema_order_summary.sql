@@ -1,0 +1,8 @@
+SELECT *
+  FROM TABLE(MOCK_PROJECT_DB.RAW.ORDER_SUMMARY_DATE_UPDATE
+    INFER_SCHEMA(
+      LOCATION=>'@MOCK_S3_EXTERNAL_STAGE/processed_data/order_summary/'
+      , FILE_FORMAT=>'PARQUET_FORMAT'
+      , IGNORE_CASE=>TRUE
+      )
+    );    

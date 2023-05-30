@@ -1,0 +1,49 @@
+show users
+
+
+
+SELECT current_account() as YOUR_ACCOUNT_LOCATOR, current_region() as YOUR_SNOWFLAKE_REGION_ID;
+export SNOWFLAKE_ACCOUNT="EQ81009"
+export SNOWFLAKE_REGION="ap-southeast-1"
+
+create role SIG_DEPLOY
+show roles;
+grant create role on account to role SIG_DEPLOY
+grant role SIG_DEPLOY to user INTERSTELLAR17
+use role SIG_DEPLOY;
+
+GRANT ROLE SIG_DEPLOY TO ROLE ACCOUNTADMIN;
+
+  WITH CUSTOMER AS (
+  SELECT  CUSTKEY,
+          CUSTOMER,
+          CUST_ADDRESS ,
+          NATIONKEY,
+          PHONE,
+         CUST_ACCTBAL,
+        CUST_MKTSEGMENT,
+        ORDER_COMMENT AS CUST_COMMENT 
+    FROM MOCK_PROJECT_DB.RAW.ORDER_SUMMARY
+)
+
+SELECT *  FROM CUSTOMER ORDER BY CUSTKEY;
+
+SELECT COUNT(CUSTKEY) FROM CUSTOMER group by CUSTKEY,CUSTOMER,CUST_ADDRESS;
+
+
+select * from order_summary where region is null;
+
+ 
+select cust_id from MOCK_PROJECT_DB.CONSUMPTION.FACT_ORDER_CUSTOMER where region_id is null;
+
+
+select count(*) from MOCK_PROJECT_DB.RAW.LINE_ITEM_SUPPLY
+
+
+select * from MOCK_PROJECT_DB.INFORMATION_SCHEMA.LOAD_HISTORY
+
+
+drop view MOCK_PROJECT_DB.CONSUMPTION.WHICH_REGION_HAS_MOST_SUPPLIER;
+
+show warehouses;
+
